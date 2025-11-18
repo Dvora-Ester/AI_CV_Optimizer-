@@ -33,7 +33,7 @@ function App() {
       return;
     }
 
-    setIsLoading(true);
+    //setIsLoading(true);
 
     try {
       let res;

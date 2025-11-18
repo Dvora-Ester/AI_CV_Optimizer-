@@ -2,6 +2,7 @@ import { optimizeJobCv } from "../services/cv.service.js";
 
 export async function optimizeJobCvController(req, res) {
   try {
+    console.log(req);
     const file = req.file;
     const { jobDescription } = req.body;
 
