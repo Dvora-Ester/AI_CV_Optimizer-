@@ -1,0 +1,201 @@
+/* Resetting some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Make the body fill the screen and use flex to center the container */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #a8dadc, #f1faee); /* Soft blue-green gradient */
+  animation: gradientAnimation 15s ease infinite; /* Smooth gradient animation */
+}
+
+/* Animation for background gradient */
+@keyframes gradientAnimation {
+  0% {
+    background: linear-gradient(135deg, #a8dadc, #f1faee);
+  }
+  50% {
+    background: linear-gradient(135deg, #a0d8d4, #e0f7fa);
+  }
+  100% {
+    background: linear-gradient(135deg, #a8dadc, #f1faee);
+  }
+}
+
+/* Main container */
+.container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Heading */
+h1 {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50; /* Darker color for contrast */
+  margin-bottom: 30px;
+  font-family: 'Roboto', sans-serif;
+  animation: slideIn 1s ease-out;
+}
+
+/* Slide-in animation for heading */
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Form elements */
+label {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #2c3e50;
+  display: block;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+input[type="file"], textarea, select, button {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9; /* Light grey background */
+  color: #34495e;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  text-align: left;
+}
+
+/* Input hover effect */
+input[type="file"]:hover, textarea:hover, select:hover, button:hover {
+  background-color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Button styling */
+button {
+  background-color: #4fa3d1; /* Soft blue button */
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 14px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+  max-width: 500px;
+}
+button:hover {
+  background-color: #358bbd; /* Slightly darker blue on hover */
+}
+
+/* Loading indication */
+.loading {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  color: #ffcc00; /* Soft yellow for loading */
+  font-weight: 600;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Result section */
+.result {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f4f8fb; /* Light gray-blue result background */
+  border-radius: 10px;
+  color: #333;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 1.5s forwards;
+}
+
+/* Download button */
+.download-button {
+  margin-top: 30px;
+  text-align: center;
+}
+.download-button a {
+  text-decoration: none;
+}
+.download-button button {
+  background-color: #81c784; /* Soft green button */
+  padding: 12px 25px;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+.download-button button:hover {
+  background-color: #66bb6a; /* Darker green on hover */
+  transform: scale(1.05);
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+  h1 {
+    font-size: 28px;
+  }
+  button, input[type="file"], textarea {
+    font-size: 14px;
+  }
+}
