@@ -39,8 +39,13 @@ import { extractTextFromPdf } from "./pdf.service.js";
 import callGemini from "./gemini.service.js";
 
 export async function optimizeGeneralCv(buffer) {
-  const originalText = await extractTextFromPdf(buffer);
-
+  let originalText;
+  try{
+   originalText = await extractTextFromPdf(buffer);
+}catch(err){
+  console.log("Error extracting text from PDF:", err);
+  throw err;
+}
   const prompt = `
 You are a professional CV optimizer.
 Improve the following CV.

@@ -10,9 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/cv",() =>{cvGeneralRoutes,
-    console.log("cvGeneralRoutes loaded")});
-
+app.use("/api/cv", cvGeneralRoutes);
 app.use("/api/cv", cvJobRoutes);
 
 export default app;

@@ -3,6 +3,7 @@ import { optimizeGeneralCv } from "../services/cv.service.js";
 export async function optimizeGeneralCvController(req, res) {
   try {
     const file = req.file;
+    console.log("!!!!!!!!!!!Received file:");
     if (!file) {
       return res.status(400).json({ error: "CV file is required" });
     }

@@ -4,7 +4,11 @@ import { optimizeGeneralCvController } from "../controllers/cvGeneral.controller
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
+console.log("cvGeneralRoutes loaded","cvGeneral.routes.js");
+router.post("/optimize/general", upload.single("cv"), (req, res) => { 
+  console.log("api cvGeneral.routes.js");
+  optimizeGeneralCvController(req, res);
+});
 
-router.post("/optimize/general", upload.single("cv"), optimizeGeneralCvController);
 
 export default router;

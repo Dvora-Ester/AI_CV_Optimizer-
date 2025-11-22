@@ -9,7 +9,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [improvedPdf, setImprovedPdf] = useState(null);
-  const [analysisOption, setAnalysisOption] = useState(null);
+  const [analysisOption, setAnalysisOption] = useState("0");
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -37,34 +37,33 @@ function App() {
 
     try {
       let res;
+      const formData = new FormData();
+      formData.append('cv', file);
+      
       if (analysisOption === "1") {
+        formData.append('description', description);
         res = await fetch('http://localhost:3000/api/cv/optimize/job', {
           method: 'POST',
-          body: JSON.stringify({ file, description }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          body: formData,
         });
       } else {
         res = await fetch('http://localhost:3000/api/cv/optimize/general', {
           method: 'POST',
-          body: JSON.stringify({ file }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          body: formData,
         });
       }
-
       if (!res.ok) {
         const errMsg = await res.json();
+        console.log("!!!!!!!!!!!!!!!!!!!Error response received:", errMsg);
         throw new Error(errMsg.message || 'Error analyzing PDF');
       }
+      console.log("!!!!!!!!!!!!!!!!!!!Response received:", res);
 
       const data = await res.json();
-      setResult(data.result);
-      setImprovedPdf(data.improvedPdf);
+      setResult(data.optimizedText);
+      // setImprovedPdf(data.improvedPdf);
     } catch (error) {
-      console.error(error);
+      console.log(error);
       alert("אירעה שגיאה במהלך שליחת הבקשה");
     } finally {
       setIsLoading(false);

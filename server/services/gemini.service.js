@@ -18,10 +18,11 @@ function createGenAIFromEnv() {
 }
 
 export async function callGemini(prompt) {
+  console.log("Calling Gemini with prompt:");
   const genAI = createGenAIFromEnv();
   if (!genAI) throw new Error("GEMINI_API_KEY not set");
 
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
   const result = await model.generateContent(prompt);
 
   // Try to return a clean text if available
