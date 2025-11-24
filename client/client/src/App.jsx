@@ -42,12 +42,12 @@ function App() {
       
       if (analysisOption === "1") {
         formData.append('description', description);
-        res = await fetch('http://localhost:3000/api/cv/optimize/job', {
+        res = await fetch('http://localhost:4000/api/cv/job/optimize', {
           method: 'POST',
           body: formData,
         });
       } else {
-        res = await fetch('http://localhost:3000/api/cv/optimize/general', {
+        res = await fetch('http://localhost:4000/api/cv/general/optimize', {
           method: 'POST',
           body: formData,
         });

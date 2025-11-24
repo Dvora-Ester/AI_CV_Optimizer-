@@ -16,10 +16,11 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "fs": "^0.0.1-security",
     "multer": "^2.0.2",
     "node": "^25.2.1",
     "pdf-lib": "^1.17.1",
-    "pdf-parse": "^2.4.5",
+    "pdf-parse": "^1.1.1",
     "pdf2image": "^1.2.3",
     "pdfjs-dist": "^5.4.394",
     "tesseract.js": "^6.0.1"
