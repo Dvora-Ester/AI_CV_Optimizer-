@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import ResultComponent from './result.jsx';
 import './style.css';
 
 function App() {
@@ -8,7 +7,6 @@ function App() {
   const [description, setDescription] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState(null);
-  const [improvedPdf, setImprovedPdf] = useState(null);
   const [analysisOption, setAnalysisOption] = useState("0");
 
   const handleFileChange = (e) => {
@@ -24,16 +22,12 @@ function App() {
   };
 
   const handleSubmit = async () => {
-    // if (analysisOption === null) {
-    //   alert("אנא בחרו אופציית ניתוח");
-    //   return;
-    // }
     if (!file || (analysisOption === "1" && !description)) {
       alert("אנא בחרו קובץ ותיאור משרה אם נדרש");
       return;
     }
 
-    //setIsLoading(true);
+    setIsLoading(true);
 
     try {
       let res;
@@ -52,18 +46,17 @@ function App() {
           body: formData,
         });
       }
+
       if (!res.ok) {
         const errMsg = await res.json();
-        console.log("!!!!!!!!!!!!!!!!!!!Error response received:", errMsg);
         throw new Error(errMsg.message || 'Error analyzing PDF');
       }
-      console.log("!!!!!!!!!!!!!!!!!!!Response received:", res);
 
       const data = await res.json();
-      setResult(data.optimizedText);
-      // setImprovedPdf(data.improvedPdf);
+      console.log("Data from server:", data);  // לוג כדי לבדוק שהנתונים מחזוריים
+      setResult(data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert("אירעה שגיאה במהלך שליחת הבקשה");
     } finally {
       setIsLoading(false);
@@ -72,50 +65,41 @@ function App() {
 
   return (
     <div>
-      <h1>אנליזת משרות</h1>
+      <h1>אנליזת קו"ח</h1>
 
-      <div>
-        <label>בחר קובץ PDF:</label>
-        <input type="file" accept=".pdf" onChange={handleFileChange} />
-      </div>
-
-      <div>
-        <label>בחר אופציה לניתוח:</label>
-        <select onChange={handleAnalysisOptionChange}>
-          <option value="0">לציון של קו"ח</option>
-          <option value="1">לבדיקת התאמה למשרה</option>
-        </select>
-      </div>
-
-      {analysisOption === "1" && (
+      {!result ? (
         <div>
-          <label>תיאור משרה:</label>
-          <textarea
-            value={description}
-            onChange={handleDescriptionChange}
-            placeholder="הכנס תיאור משרה"
-          />
+          <div>
+            <label>בחר קובץ PDF:</label>
+            <input type="file" accept=".pdf" onChange={handleFileChange} />
+          </div>
+
+          <div>
+            <label>בחר אופציה לניתוח:</label>
+            <select onChange={handleAnalysisOptionChange}>
+              <option value="0">ציון כללי של קו"ח</option>
+              <option value="1">בדיקת התאמה למשרה</option>
+            </select>
+          </div>
+
+          {analysisOption === "1" && (
+            <div>
+              <label>תיאור משרה:</label>
+              <textarea
+                value={description}
+                onChange={handleDescriptionChange}
+                placeholder="הכנס תיאור משרה"
+              />
+            </div>
+          )}
+
+          <button onClick={handleSubmit} disabled={isLoading}>
+            {isLoading ? 'ממתין לניתוח...' : 'שלח ניתוח'}
+          </button>
         </div>
-      )}
-
-      <button onClick={handleSubmit} disabled={isLoading}>
-        {isLoading ? 'ממתין לניתוח...' : 'שלח ניתוח'}
-      </button>
-
-      {isLoading && <div>המערכת פועלת...</div>}
-
-      {result && (
+      ) : (
         <div>
-          <h3>תוצאות הניתוח:</h3>
-          <p>{result}</p>
-        </div>
-      )}
-
-      {improvedPdf && (
-        <div>
-          <a href={improvedPdf} download>
-            <button>הורד PDF משופר</button>
-          </a>
+          <ResultComponent data={result} onBack={() => setResult(null)} />
         </div>
       )}
     </div>
